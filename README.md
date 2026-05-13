@@ -1,5 +1,5 @@
 # // Meteobridge Datalogger for Home Assistant
-![GitHub release](https://img.shields.io/github/release/briis/meteobridge.svg?style=flat-square)
+![GitHub release](https://img.shields.io/github/release/iu1jvo/meteobridge.svg?style=flat-square)
 [![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg?style=flat-square)](https://github.com/hacs/integration) [![](https://img.shields.io/badge/COMMUNITY-FORUM-success?style=flat-square)](https://community.home-assistant.io/t/meteobridge-weather-logger-integration/154263)
 
 
