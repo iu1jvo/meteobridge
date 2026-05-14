@@ -1,7 +1,10 @@
 # // Meteobridge Datalogger for Home Assistant
 [![Original Developer](https://img.shields.io/badge/original--author-@briis-blue)](https://github.com/briis)
+[![Old Repository](https://img.shields.io/badge/github-Old%20Repository-blue?logo=github)](https://https://github.com/briis/meteobridge/)
 ![GitHub release](https://img.shields.io/github/release/iu1jvo/meteobridge.svg?style=flat-square)
-[![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg?style=flat-square)](https://github.com/hacs/integration) [![](https://img.shields.io/badge/COMMUNITY-FORUM-success?style=flat-square)](https://community.home-assistant.io/t/meteobridge-weather-logger-integration/154263)
+[![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg?style=flat-square)](https://github.com/hacs/integration) 
+[![](https://img.shields.io/badge/COMMUNITY-FORUM-success?style=flat-square)](https://community.home-assistant.io/t/meteobridge-weather-logger-integration/154263)
+
 
 
 > **NOTE** If you have a version < 3.0.0 of this Integration running already, installing Version 3.0.x will introduce a lot of **breaking changes**, as sensors and unique_id's have changed completely. You can read more about this in the [CHANGELOG.md](https://github.com/briis/meteobridge/blob/master/CHANGELOG.md) document.
