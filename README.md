@@ -1,15 +1,18 @@
 # // Meteobridge Datalogger for Home Assistant
+
 [![Original Developer](https://img.shields.io/badge/original--author-@briis-blue)](https://github.com/briis)
 [![Old Repository](https://img.shields.io/badge/github-Old%20Repository-blue?logo=github)](https://https://github.com/briis/meteobridge/)
-![GitHub release](https://img.shields.io/github/release/iu1jvo/meteobridge.svg?style=flat-square)
-[![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg?style=flat-square)](https://github.com/hacs/integration) 
-[![](https://img.shields.io/badge/COMMUNITY-FORUM-success?style=flat-square)](https://community.home-assistant.io/t/meteobridge-weather-logger-integration/154263)
 
-
+[![Buy Me A Coffee](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/iu1jvo6)
+[![PayPal](https://img.shields.io/badge/Donate-PayPal-blue?logo=paypal)](https://paypal.me/giulianofavro)
+[![GitHub release](https://img.shields.io/github/release/iu1jvo/meteobridge.svg?style=flat-square)](https://github.com/iu1jvo/meteobridge/releases/latest)
+[![GitHub downloads](https://img.shields.io/github/downloads/iu1jvo/meteobridge/total?style=flat-square)](https://github.com/iu1jvo/meteobridge/releases)
+[![HACS](https://img.shields.io/badge/HACS-Default-orange.svg?style=flat-square)](https://github.com/hacs/integration)
+[![Comunity Forum](https://img.shields.io/badge/Community-Forum-success?style=flat-square)](https://community.home-assistant.io/t/meteobridge-weather-logger-integration/154263)
 
 > **NOTE** If you have a version < 3.0.0 of this Integration running already, installing Version 3.0.x will introduce a lot of **breaking changes**, as sensors and unique_id's have changed completely. You can read more about this in the [CHANGELOG.md](https://github.com/briis/meteobridge/blob/master/CHANGELOG.md) document.
 
-The Meteobridge Integration adds support for retrieving data from a Meteobridge datalogger. It uses a built-in REST API from Meteobridge to retrieve current data for a local WeatherStation
+The Meteobridge Integration adds support for retrieving data from a Meteobridge datalogger. It uses a built-in REST API from Meteobridge to retrieve current data for a local WeatherStation.
 
 [*Meteobridge*](https://www.meteobridge.com/wiki/index.php/Home) is a small device that connects your personal weather station to public weather networks like "Weather Underground". This allows you to feed your micro climate data to a weather network in the Internet and to have it there visible from wherever you are. Meteobridge also has many ways of delivering data to your local network, and this furthermore reduces the dependencies for Cloud Services when you need very local Weather Data.
 
@@ -18,6 +21,7 @@ Meteobridge can be delivered as complete HW and SW packages, or there is a SW so
 You can attach more than 1 Weather Station to one Meteobridge device, but that is **not currently supported** by this integration. If you have more than 1 Station configured, only data from the Primary Station will be retrieved. There is support for the Davis Airlink device attached.
 
 There is support for the following devices types within Home Assistant:
+
 * Sensor
   * A whole range of individual sensors will be available. for a complete list of the sensors, see the list below.
 * Binary Sensor
@@ -27,21 +31,24 @@ If you want to have a *Weather Entity* that combines your local realtime weather
 
 ## Table of Contents
 
-1. [Installation](#installation)
+* [// Meteobridge Datalogger for Home Assistant](#-meteobridge-datalogger-for-home-assistant)
+  * [Table of Contents](#table-of-contents)
+  * [Installation](#installation)
     * [HACS Installation](#hacs-installation)
-    * [Manuel Installation](#manuel-installation)
-2. [Configuration](#configuration)
+    * [Manual Installation](#manual-installation)
+  * [Configuration](#configuration)
     * [Configuration Options](#configuration-options)
-3. [Available Sensors](#available-sensors)
-4. [Available Binary Sensors](#available-binary-sensors)
-5. [Enable Debug Logging](#enable-debug-logging)
-6. [Contribute to Development](#contribute-to-the-project-and-developing-with-a-devcontainer)
+  * [Available Sensors](#available-sensors)
+  * [Available Binary Sensors](#available-binary-sensors)
+  * [Enable Debug Logging](#enable-debug-logging)
+  * [CONTRIBUTE TO THE PROJECT AND DEVELOPING WITH A DEVCONTAINER](#contribute-to-the-project-and-developing-with-a-devcontainer)
     * [Integration](#integration)
     * [Frontend](#frontend)
 
 ## Installation
 
 ### HACS Installation
+
 This Integration is part of the default HACS store, so search for *Meteobridge Dalogger* in HACS.
 
 ### Manual Installation
@@ -65,17 +72,20 @@ translation (Directory with all files)
 ```
 
 ## Configuration
+
 To add Meteobridge to your installation, do the following:
-- Go to *Configuration* and *Integrations*
-- Click the `+ ADD INTEGRATION` button in the lower right corner.
-- Search for Meteobridge and click the integration.
-- When loaded, there will be a configuration box, where you have to enter your *Logger IP Address*, *Logger Username*  and a *Logger Password* to get access to your data. When entered click *Submit* and the Integration will load all the entities.
+
+* Go to *Configuration* and *Integrations*
+* Click the `+ ADD INTEGRATION` button in the lower right corner.
+* Search for Meteobridge and click the integration.
+* When loaded, there will be a configuration box, where you have to enter your *Logger IP Address*, *Logger Username*  and a *Logger Password* to get access to your data. When entered click *Submit* and the Integration will load all the entities.
 
 If you want to change the update frequencies for the realtime data and number of extra sensors, then click `CONFIGURE` in the lower left corner of the Meteobridge integration, after the Integration is loaded the first time.
 
 You can configure more than 1 instance of the Integration by using a different IP Address.
 
 ### Configuration Options
+
 * `ip_address`: (required) IP Address of the Meteobridge device.
 * `username`: (required) The username to login to your Meteobridge device. Default this *meteobridge*.
 * `password`: (required) The password for your meteobridge device.
@@ -92,10 +102,10 @@ There is also the possibility to attach extra sensors to a Meteobridge Datalogge
 
 All entities are prefixed with `meteobridge` and names are prefixed with `Meteobridge`
 
-| Sensor ID   | Name   | Description   | Calculated Sensor   |
+| Sensor ID | Name | Description | Calculated Sensor |
 | --- | --- | --- | --- |
-| air_density | Air Density| Current Air Density | Yes |
-| air_quality_pm1 | Air Quality PM1| Count of ultrafine particles with an aerodynamic diameter less than 1 micrometers | No |
+| air_density | Air Density | Current Air Density | Yes |
+| air_quality_pm1 | Air Quality PM1 | Count of ultrafine particles with an aerodynamic diameter less than 1 micrometers | No |
 | air_quality_pm10 | Air Quality PM10 | Count of particles having an aerodynamic diameter of less than 10 micrometers | No |
 | air_quality_pm25 | Air Quality PM2.5 | Count of particles with an aerodynamic diameter less than 2.5 micrometers | No |
 | air_temperature | Air Temperature | Outside Temperature | No |
@@ -151,14 +161,13 @@ Here is the list of binary sensors that the program generates. These sensors are
 
 All entities are prefixed with `meteobridge` and names are prefixed with `Meteobridge`
 
-| Sensor ID   | Name   | Description   |
+| Sensor ID | Name | Description |
 | --- | --- | --- |
 | is_freezing | Is Freezing | Is the Temperature below freezing point |
 | is_raining | Is Raining | Is it raining outside |
 | wind_sensor_battery_status | Wind Sensor battery status | Status of Wind Sensor battery, true if battery is LOW |
 | th_sensor_battery_status | Temperature/Humidity Sensor battery status | Status of Temperature/Humidity Sensor battery, true if battery is LOW |
 | rain_sensor_battery_status | Rain Sensor battery status | Status of Rain Sensor battery, true if battery is LOW |
-
 
 ## Enable Debug Logging
 
@@ -186,8 +195,9 @@ logger:
 There are some sensors in this integration that provides a text as state which is not covered by the core Frontend translation. Example: `sensor.meteobridge_pressure_tend`, `sensor.meteobridge_uv_description` and `sensor.meteobridge_beaufort_description`.
 
 As default the text in the Frontend is displayed in english if your language is not present in this integration, but if you want to help translate these texts in to a new language, please do the following:
-- Go to the `translations` directory under `custom_components/meteobridge` and copy the file `sensor.en.json` to `sensor.YOUR_LANGUAGE_CODE.json` in a directory on your computer.
-- Edit the file and change all the descriptions to your language.
-- Make a Pull request in this Github and attach your new file.
+
+* Go to the `translations` directory under `custom_components/meteobridge` and copy the file `sensor.en.json` to `sensor.YOUR_LANGUAGE_CODE.json` in a directory on your computer.
+* Edit the file and change all the descriptions to your language.
+* Make a Pull request in this Github and attach your new file.
 
 The same procedure applies for the Configuration flow, follow the above procedure, just copy `en.json` to `YOUR_LANGUAGE_CODE.json`.
