@@ -20,7 +20,7 @@ There is support for the following devices types within Home Assistant:
 * Binary Sensor
   * A few binary sensors will be available, that can be used to trigger automations, if f.ex. it starts raining.
 
-If you want to have a *Weather Entity* that combines your local realtime weather data with forecast data, I recommend you look at the [Weather Template](https://www.home-assistant.io/integrations/weather.template/) that does exactly that, and here you are free to choose from all the available Weather Integrations in Home Assistant.
+If you want to have a *Weather Entity* that combines your local realtime weather data with forecast data, I recommend you look at the [Weather Template](https://www.home-assistant.io/integrations/template/#weather) that does exactly that, and here you are free to choose from all the available Weather Integrations in Home Assistant.
 
 ## Table of Contents
 
