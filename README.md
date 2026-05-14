@@ -3,7 +3,7 @@
 [![Original Developer](https://img.shields.io/badge/original--author-@briis-blue)](https://github.com/briis)
 [![Old Repository](https://img.shields.io/badge/github-Old%20Repository-blue?logo=github)](https://https://github.com/briis/meteobridge/)
 
-[![PayPal](https://img.shields.io/badge/Donate-PayPal-blue?logo=paypal)](paypal.me/giulianofavro)
+[![PayPal](https://img.shields.io/badge/Donate-PayPal-blue?logo=paypal)](https://paypal.me/giulianofavro)
 [![GitHub release](https://img.shields.io/github/release/iu1jvo/meteobridge.svg?style=flat-square)](https://github.com/iu1jvo/meteobridge/releases/latest)
 [![GitHub downloads](https://img.shields.io/github/downloads/iu1jvo/meteobridge/total?style=flat-square)](https://github.com/iu1jvo/meteobridge/releases)
 [![HACS](https://img.shields.io/badge/HACS-Default-orange.svg?style=flat-square)](https://github.com/hacs/integration)
