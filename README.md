@@ -1,9 +1,9 @@
 # // Meteobridge Datalogger for Home Assistant
 
-[![PayPal](https://img.shields.io/badge/Donate-PayPal-blue?logo=paypal)](https://www.paypal.com/donate?hosted_button_id=TUOBUTTONID)
-
 [![Original Developer](https://img.shields.io/badge/original--author-@briis-blue)](https://github.com/briis)
 [![Old Repository](https://img.shields.io/badge/github-Old%20Repository-blue?logo=github)](https://https://github.com/briis/meteobridge/)
+
+[![PayPal](https://img.shields.io/badge/Donate-PayPal-blue?logo=paypal)](paypal.me/giulianofavro)
 [![GitHub release](https://img.shields.io/github/release/iu1jvo/meteobridge.svg?style=flat-square)](https://github.com/iu1jvo/meteobridge/releases/latest)
 [![GitHub downloads](https://img.shields.io/github/downloads/iu1jvo/meteobridge/total?style=flat-square)](https://github.com/iu1jvo/meteobridge/releases)
 [![HACS](https://img.shields.io/badge/HACS-Default-orange.svg?style=flat-square)](https://github.com/hacs/integration)
@@ -30,19 +30,19 @@ If you want to have a *Weather Entity* that combines your local realtime weather
 
 ## Table of Contents
 
-- [// Meteobridge Datalogger for Home Assistant](#-meteobridge-datalogger-for-home-assistant)
-  - [Table of Contents](#table-of-contents)
-  - [Installation](#installation)
-    - [HACS Installation](#hacs-installation)
-    - [Manual Installation](#manual-installation)
-  - [Configuration](#configuration)
-    - [Configuration Options](#configuration-options)
-  - [Available Sensors](#available-sensors)
-  - [Available Binary Sensors](#available-binary-sensors)
-  - [Enable Debug Logging](#enable-debug-logging)
-  - [CONTRIBUTE TO THE PROJECT AND DEVELOPING WITH A DEVCONTAINER](#contribute-to-the-project-and-developing-with-a-devcontainer)
-    - [Integration](#integration)
-    - [Frontend](#frontend)
+* [// Meteobridge Datalogger for Home Assistant](#-meteobridge-datalogger-for-home-assistant)
+  * [Table of Contents](#table-of-contents)
+  * [Installation](#installation)
+    * [HACS Installation](#hacs-installation)
+    * [Manual Installation](#manual-installation)
+  * [Configuration](#configuration)
+    * [Configuration Options](#configuration-options)
+  * [Available Sensors](#available-sensors)
+  * [Available Binary Sensors](#available-binary-sensors)
+  * [Enable Debug Logging](#enable-debug-logging)
+  * [CONTRIBUTE TO THE PROJECT AND DEVELOPING WITH A DEVCONTAINER](#contribute-to-the-project-and-developing-with-a-devcontainer)
+    * [Integration](#integration)
+    * [Frontend](#frontend)
 
 ## Installation
 
