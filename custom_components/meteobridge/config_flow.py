@@ -108,6 +108,14 @@ class OptionsFlowHandler(config_entries.OptionsFlow):
     async def async_step_init(self, user_input=None):
         """Manage the options."""
         if user_input is not None:
+            #update data with user/passord and options with scan interval and extra sensors
+            self.hass.config_entries.async_update_entry(
+                self.config_entry,
+                data={
+                    CONF_USERNAME: user_input.pop(CONF_USERNAME),
+                    CONF_PASSWORD: user_input.pop(CONF_PASSWORD),
+                },
+            )
             return self.async_create_entry(title="", data=user_input)
 
         return self.async_show_form(
@@ -116,13 +124,13 @@ class OptionsFlowHandler(config_entries.OptionsFlow):
                 {
                     vol.Optional(
                         CONF_USERNAME,
-                        default=self.config_entry.options.get(
+                        default=self.config_entry.data.get(
                             CONF_USERNAME, DEFAULT_USERNAME
                         ),
                     ): str,
                     vol.Optional(
                         CONF_PASSWORD,
-                        default=self.config_entry.options.get(CONF_PASSWORD, ""),
+                        default=self.config_entry.data.get(CONF_PASSWORD, ""),
                     ): str,
                     vol.Optional(
                         CONF_SCAN_INTERVAL,
