@@ -43,7 +43,7 @@ BINARY_SENSOR_TYPES: tuple[BinarySensorEntityDescription, ...] = (
         key="wind_sensor_lowbat",
         name="Wind sensor battery status",
         device_class=BinarySensorDeviceClass.BATTERY,
-    ),            
+    ),
 )
 
 
