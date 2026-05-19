@@ -2,9 +2,7 @@
 from __future__ import annotations
 
 from homeassistant.const import (
-    CONF_PASSWORD,
     CONF_SCAN_INTERVAL,
-    CONF_USERNAME,
 )
 
 DOMAIN = "meteobridge"
