@@ -36,7 +36,7 @@ class MeteobridgeFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
     @callback
     def async_get_options_flow(config_entry):
         """Get the options flow for this handler."""
-        return OptionsFlowHandler(config_entry)
+        return OptionsFlowHandler()
 
     async def async_step_user(self, user_input=None):
         """Handle a flow initiated by the user."""
@@ -101,37 +101,15 @@ class MeteobridgeFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
 class OptionsFlowHandler(config_entries.OptionsFlow):
     """Handle options."""
 
-    def __init__(self, config_entry):
-        """Initialize options flow."""
-        self.config_entry = config_entry
-
     async def async_step_init(self, user_input=None):
         """Manage the options."""
         if user_input is not None:
-            #update data with user/passord and options with scan interval and extra sensors
-            self.hass.config_entries.async_update_entry(
-                self.config_entry,
-                data={
-                    CONF_USERNAME: user_input.pop(CONF_USERNAME),
-                    CONF_PASSWORD: user_input.pop(CONF_PASSWORD),
-                },
-            )
             return self.async_create_entry(title="", data=user_input)
 
         return self.async_show_form(
             step_id="init",
             data_schema=vol.Schema(
                 {
-                    vol.Optional(
-                        CONF_USERNAME,
-                        default=self.config_entry.data.get(
-                            CONF_USERNAME, DEFAULT_USERNAME
-                        ),
-                    ): str,
-                    vol.Optional(
-                        CONF_PASSWORD,
-                        default=self.config_entry.data.get(CONF_PASSWORD, ""),
-                    ): str,
                     vol.Optional(
                         CONF_SCAN_INTERVAL,
                         default=self.config_entry.options.get(
