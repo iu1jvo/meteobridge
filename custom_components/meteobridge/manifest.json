@@ -1,18 +1,18 @@
 {
-    "domain": "meteobridge",
-    "name": "Meteobridge Datalogger",
-    "codeowners": [
-        "@briis",
-        "@iu1jvo"
-    ],
-    "config_flow": true,
-    "dependencies": [],
-    "documentation": "https://github.com/iu1jvo/meteobridge",
-    "integration_type": "device",
-    "iot_class": "local_polling",
-    "issue_tracker": "https://github.com/iu1jvo/meteobridge/issues",
-    "requirements": [
-        "pymeteobridgedata==0.1.21"
-    ],
-    "version": "3.5.0"
+  "domain": "meteobridge",
+  "name": "Meteobridge Datalogger",
+  "codeowners": [
+    "@briis",
+    "@iu1jvo"
+  ],
+  "config_flow": true,
+  "dependencies": [],
+  "documentation": "https://github.com/iu1jvo/meteobridge",
+  "integration_type": "device",
+  "iot_class": "local_polling",
+  "issue_tracker": "https://github.com/iu1jvo/meteobridge/issues",
+  "requirements": [
+    "pymeteobridgedata==0.1.21"
+  ],
+  "version": "3.5.2"
 }
