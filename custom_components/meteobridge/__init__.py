@@ -26,11 +26,11 @@ from pymeteobridgedata.data import DataLoggerDescription, ObservationDescription
 
 from .const import (
     CONF_EXTRA_SENSORS,
-    CONFIG_OPTIONS,
     CONF_UNIT_SYSTEM_IMPERIAL,
     CONF_UNIT_SYSTEM_METRIC,
     DEFAULT_BRAND,
     DEFAULT_SCAN_INTERVAL,
+    DEFAULT_USERNAME,
     DOMAIN,
     METEOBRIDGE_PLATFORMS,
 )
@@ -40,23 +40,26 @@ _LOGGER = logging.getLogger(__name__)
 
 
 @callback
-def _async_import_options_from_data_if_missing(hass: HomeAssistant, entry: ConfigEntry):
-    options = dict(entry.options)
-    data = dict(entry.data)
-    modified = False
-    for importable_option in CONFIG_OPTIONS:
-        if importable_option not in entry.options and importable_option in entry.data:
-            options[importable_option] = entry.data[importable_option]
-            del data[importable_option]
-            modified = True
-
-    if modified:
-        hass.config_entries.async_update_entry(entry, data=data, options=options)
-
+def _async_migrate_credentials_to_data(hass: HomeAssistant, entry: ConfigEntry):
+    """Migrate username/password from options to data if needed (pre-3.5.1)."""
+    if CONF_USERNAME in entry.options or CONF_PASSWORD in entry.options:
+        new_data = {
+            **entry.data,
+            CONF_USERNAME: entry.options.get(CONF_USERNAME, DEFAULT_USERNAME),
+            CONF_PASSWORD: entry.options.get(CONF_PASSWORD, ""),
+        }
+        new_options = {
+            k: v for k, v in entry.options.items()
+            if k not in (CONF_USERNAME, CONF_PASSWORD)
+        }
+        hass.config_entries.async_update_entry(
+            entry, data=new_data, options=new_options
+        )
+        _LOGGER.debug("Migrated credentials from options to data for entry %s", entry.entry_id)
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Set up the Meteobridge config entries."""
-    _async_import_options_from_data_if_missing(hass, entry)
+    _async_migrate_credentials_to_data(hass, entry)
 
     session = async_create_clientsession(hass)
     unit_system = (

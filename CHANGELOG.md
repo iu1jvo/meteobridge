@@ -1,5 +1,12 @@
 # Change Log
 
+## [3.5.2] - 2026-05-19
+- Fix Issue [Failed to setup after upgrade to 3.5.1](https://github.com/iu1jvo/meteobridge/issues/13).
+
+## [3.5.1] - 2026-05-19
+- Fix issue [Config flow could not be loaded: 500 Internal Server Error Server got itself in trouble](https://github.com/iu1jvo/meteobridge/issues/8).
+> **NOTE** Updating a previous version (e.g. 3.5.0), the issue [Failed to setup after upgrade to 3.5.1](https://github.com/iu1jvo/meteobridge/issues/13). Please update to version 3.5.2.
+
 ## [3.5.0] - 2026-05-13
 - Update Meteobridge Integration to the last Home Assistant requirement (tested on 2026.2.3)
 
