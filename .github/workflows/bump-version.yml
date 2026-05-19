@@ -1,0 +1,84 @@
+name: Bump Version Files
+
+# Runs BEFORE the build workflow.
+# When you push a tag vX.Y.Z this workflow:
+#   1. Updates version in custom_components/meteobridge/manifest.json
+#   2. Commits the changes back to the branch that was tagged
+#   3. Moves the tag to point at the new commit
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+jobs:
+  bump-versions:
+    name: Bump version files to ${{ github.ref_name }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write   # needed to push the commit and move the tag
+
+    steps:
+      - name: Checkout repository (full history)
+        uses: actions/checkout@v4
+        with:
+          # Check out the branch the tag points to, not the detached tag commit
+          ref: ${{ github.event.repository.default_branch }}
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install PyYAML
+        run: pip install pyyaml
+
+      - name: Extract version (strip leading 'v')
+        id: ver
+        run: echo "version=${GITHUB_REF_NAME#v}" >> $GITHUB_OUTPUT
+
+
+      - name: Bump custom_components/meteobridge/manifest.json
+        run: |
+          python3 - <<'EOF'
+          import json
+
+          path = "custom_components/meteobridge/manifest.json"
+          version = "${{ steps.ver.outputs.version }}"
+
+          with open(path) as f:
+              manifest = json.load(f)
+
+          old = manifest.get("version", "?")
+          manifest["version"] = version
+
+          with open(path, "w") as f:
+              json.dump(manifest, f, indent=2)
+              f.write("\n")   # trailing newline
+
+          print(f"manifest.json: {old} → {version}")
+          EOF
+
+      - name: Commit bumped files
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add custom_components/meteobridge/manifest.json
+
+          # Only commit if there is actually a change
+          if git diff --cached --quiet; then
+            echo "No version change – skipping commit."
+          else
+            git commit -m "chore: bump version to ${{ github.ref_name }} [skip ci]"
+            git push origin HEAD:${{ github.event.repository.default_branch }}
+          fi
+
+      - name: Move tag to new commit
+        run: |
+          # Re-point the tag at the version-bump commit so the build
+          # workflow picks up the updated files.
+          git tag -f ${{ github.ref_name }}
+          git push origin ${{ github.ref_name }} --force

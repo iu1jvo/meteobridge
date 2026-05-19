@@ -1,0 +1,59 @@
+name: CI – Lint & Validate
+
+on:
+  push:
+    branches: ["main", "master", "dev"]
+  pull_request:
+    branches: ["main", "master"]
+
+jobs:
+  lint-python:
+    name: Python lint (daemon)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install linters
+        run: pip install flake8 pylint
+
+      - name: flake8
+        run: flake8 ha-addon-x728/x728_daemon.py --max-line-length=100
+
+      - name: flake8 – integration
+        run: flake8 custom_components/x728/ --max-line-length=100
+
+  validate-integration:
+    name: Validate HA integration structure
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install hassfest dependencies
+        run: pip install homeassistant voluptuous
+
+      - name: Check manifest.json fields
+        run: |
+          python3 - <<'EOF'
+          import json, sys
+          with open("custom_components/meteobridge/manifest.json") as f:
+              m = json.load(f)
+          required = ["domain", "name", "version", "config_flow", "iot_class"]
+          missing = [k for k in required if k not in m]
+          if missing:
+              print(f"ERROR: manifest.json missing keys: {missing}")
+              sys.exit(1)
+          print("manifest.json OK:", m["domain"], m["version"])
+          EOF
+
+      - name: Check translations exist
+        run: |
+          test -f custom_components/meteobridge/translations/en.json && echo "translations/en.json OK"
+          test -f custom_components/meteobridge/translations/it.json && echo "translations/it.json OK"
