@@ -52,5 +52,8 @@ jobs:
 
       - name: Check translations exist
         run: |
+          test -f custom_components/meteobridge/translations/da.json && echo "translations/da.json OK"
+          test -f custom_components/meteobridge/translations/de.json && echo "translations/de.json OK"
           test -f custom_components/meteobridge/translations/en.json && echo "translations/en.json OK"
           test -f custom_components/meteobridge/translations/it.json && echo "translations/it.json OK"
+          test -f custom_components/meteobridge/translations/nb.json && echo "translations/nb.json OK"
