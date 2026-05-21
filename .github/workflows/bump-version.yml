@@ -1,10 +1,10 @@
 name: Bump Version Files
 
-# Runs BEFORE the build workflow.
 # When you push a tag vX.Y.Z this workflow:
 #   1. Updates version in custom_components/meteobridge/manifest.json
-#   2. Commits the changes back to the branch that was tagged
+#   2. Commits the changes back to the default branch
 #   3. Moves the tag to point at the new commit
+#   4. Creates a GitHub Release with changelog
 
 on:
   push:
@@ -16,13 +16,12 @@ jobs:
     name: Bump version files to ${{ github.ref_name }}
     runs-on: ubuntu-latest
     permissions:
-      contents: write   # needed to push the commit and move the tag
+      contents: write
 
     steps:
       - name: Checkout repository (full history)
         uses: actions/checkout@v5
         with:
-          # Check out the branch the tag points to, not the detached tag commit
           ref: ${{ github.event.repository.default_branch }}
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -32,13 +31,9 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Install PyYAML
-        run: pip install pyyaml
-
       - name: Extract version (strip leading 'v')
         id: ver
         run: echo "version=${GITHUB_REF_NAME#v}" >> $GITHUB_OUTPUT
-
 
       - name: Bump custom_components/meteobridge/manifest.json
         run: |
@@ -62,23 +57,71 @@ jobs:
           EOF
 
       - name: Commit bumped files
+        env:
+          PAT_TOKEN: ${{ secrets.PAT_PUSH }}
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
           git add custom_components/meteobridge/manifest.json
 
-          # Only commit if there is actually a change
           if git diff --cached --quiet; then
             echo "No version change – skipping commit."
           else
             git commit -m "chore: bump version to ${{ github.ref_name }} [skip ci]"
-            git push origin HEAD:${{ github.event.repository.default_branch }}
+            git push https://x-access-token:${PAT_TOKEN}@github.com/${{ github.repository }}.git HEAD:${{ github.event.repository.default_branch }}
           fi
 
       - name: Move tag to new commit
+        env:
+          PAT_TOKEN: ${{ secrets.PAT_PUSH }}
         run: |
-          # Re-point the tag at the version-bump commit so the build
-          # workflow picks up the updated files.
           git tag -f ${{ github.ref_name }}
-          git push origin ${{ github.ref_name }} --force
+          git push https://x-access-token:${PAT_TOKEN}@github.com/${{ github.repository }}.git ${{ github.ref_name }} --force
+
+
+  release:
+    name: Create GitHub Release
+    runs-on: ubuntu-latest
+    needs: bump-versions
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+        with:
+          ref: ${{ github.ref_name }}
+          fetch-depth: 0
+
+      - name: Extract version (strip leading 'v')
+        id: ver
+        run: echo "version=${GITHUB_REF_NAME#v}" >> $GITHUB_OUTPUT
+
+      - name: Generate changelog from commits
+        id: changelog
+        run: |
+          PREV_TAG=$(git describe --tags --abbrev=0 HEAD^ 2>/dev/null || echo "")
+          if [ -z "$PREV_TAG" ]; then
+            LOG=$(git log --pretty=format:"- %s (%h)" | head -20)
+          else
+            LOG=$(git log ${PREV_TAG}..HEAD --pretty=format:"- %s (%h)")
+          fi
+          echo "log<<EOF" >> $GITHUB_OUTPUT
+          echo "$LOG"     >> $GITHUB_OUTPUT
+          echo "EOF"      >> $GITHUB_OUTPUT
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v3
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: "Release ${{ github.ref_name }}"
+          body: |
+            ## What's changed
+            ${{ steps.changelog.outputs.log }}
+
+            ## Installation
+            Install or update via [HACS](https://hacs.xyz), oppure copia manualmente
+            la cartella `custom_components/meteobridge` nella tua installazione Home Assistant.
+          draft: false
+          prerelease: ${{ contains(github.ref_name, 'alpha') || contains(github.ref_name, 'beta') || contains(github.ref_name, 'rc') }}
