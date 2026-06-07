@@ -14,5 +14,5 @@
   "requirements": [
     "pymeteobridgedata==0.1.23"
   ],
-  "version": "3.5.3"
+  "version": "3.5.4"
 }
