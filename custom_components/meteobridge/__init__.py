@@ -147,7 +147,7 @@ async def _async_get_or_create_nvr_device_in_registry(
         manufacturer=DEFAULT_BRAND,
         name=f"{device_data.station} ({device_data.ip})",
         model=device_data.platform,
-        sw_version=device_data.swversion,
+        sw_version=str(device_data.swversion),
     )
 
 
