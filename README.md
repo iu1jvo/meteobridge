@@ -7,7 +7,7 @@
 [![PayPal](https://img.shields.io/badge/Donate-PayPal-blue?logo=paypal)](https://paypal.me/giulianofavro)
 [![GitHub release](https://img.shields.io/github/v/release/iu1jvo/meteobridge)](https://github.com/iu1jvo/meteobridge/releases/latest)
 [![GitHub license](https://img.shields.io/github/license/iu1jvo/meteobridge)](https://github.com/iu1jvo/meteobridge/blob/master/LICENSE)
-[![Home Assistant installs](https://img.shields.io/badge/dynamic/json?color=41BDF5&logo=home-assistant&label=HA%20installs&suffix=%20users&cacheSeconds=14400&url=https://analytics.home-assistant.io/custom_integrations.json&query=$.meteobridge.total)](https://analytics.home-assistant.io/custom_integrations.json)
+[![Home Assistant installs](https://img.shields.io/badge/dynamic/json?color=41BDF5&logo=home-assistant&label=HA%20installs&suffix=%20users&cacheSeconds=14400&url=https://analytics.home-assistant.io/custom_integrations.json&query=$.meteobridge.total)](https://github.com/iu1jvo/meteobridge)
 [![HACS](https://img.shields.io/badge/HACS-Default-orange.svg)](https://github.com/hacs/integration)
 [![Comunity Forum](https://img.shields.io/badge/Community-Forum-success)](https://community.home-assistant.io/t/meteobridge-weather-logger-integration/154263)
 
