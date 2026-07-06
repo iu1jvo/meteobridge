@@ -5,11 +5,11 @@
 
 [![Buy Me A Coffee](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/iu1jvo6)
 [![PayPal](https://img.shields.io/badge/Donate-PayPal-blue?logo=paypal)](https://paypal.me/giulianofavro)
-[![GitHub release](https://img.shields.io/github/v/release/iu1jvo/meteobridge?style=flat-square)](https://github.com/iu1jvo/meteobridge/releases/latest)
-[![GitHub license](https://img.shields.io/github/license/iu1jvo/meteobridge?style=flat-square)](https://github.com/iu1jvo/meteobridge/blob/master/LICENSE)
+[![GitHub release](https://img.shields.io/github/v/release/iu1jvo/meteobridge)](https://github.com/iu1jvo/meteobridge/releases/latest)
+[![GitHub license](https://img.shields.io/github/license/iu1jvo/meteobridge)](https://github.com/iu1jvo/meteobridge/blob/master/LICENSE)
 [![Home Assistant installs](https://img.shields.io/badge/dynamic/json?color=41BDF5&logo=home-assistant&label=HA%20installs&suffix=%20users&cacheSeconds=14400&url=https://analytics.home-assistant.io/custom_integrations.json&query=$.meteobridge.total)](https://analytics.home-assistant.io/custom_integrations.json)
-[![HACS](https://img.shields.io/badge/HACS-Default-orange.svg?style=flat-square)](https://github.com/hacs/integration)
-[![Comunity Forum](https://img.shields.io/badge/Community-Forum-success?style=flat-square)](https://community.home-assistant.io/t/meteobridge-weather-logger-integration/154263)
+[![HACS](https://img.shields.io/badge/HACS-Default-orange.svg)](https://github.com/hacs/integration)
+[![Comunity Forum](https://img.shields.io/badge/Community-Forum-success)](https://community.home-assistant.io/t/meteobridge-weather-logger-integration/154263)
 
 > **NOTE** If you have a version < 3.0.0 of this Integration running already, installing Version 3.0.x will introduce a lot of **breaking changes**, as sensors and unique_id's have changed completely. You can read more about this in the [CHANGELOG.md](https://github.com/briis/meteobridge/blob/master/CHANGELOG.md) document.
 
