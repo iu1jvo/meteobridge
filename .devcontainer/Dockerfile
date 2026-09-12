@@ -1,4 +1,4 @@
-FROM ghcr.io/home-assistant/home-assistant:2026.6
+FROM ghcr.io/home-assistant/home-assistant:2026.9
 
 
 # Optional corporate certificate

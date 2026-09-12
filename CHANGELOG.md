@@ -1,5 +1,9 @@
 # Change Log
 
+## [3.5.5] - 2026-09-12
+- Fix Issue [Warning for deprecated unit of measure] (https://github.com/iu1jvo/meteobridge/issues/21)
+- Fix Issue [Warning for deprecated parameter in function call] (https://github.com/iu1jvo/meteobridge/issues/22)
+
 ## [3.5.2] - 2026-05-19
 - Fix Issue [Failed to setup after upgrade to 3.5.1](https://github.com/iu1jvo/meteobridge/issues/13).
 

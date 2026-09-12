@@ -12,10 +12,11 @@ from homeassistant.components.sensor import (
 )
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import (
-    CONCENTRATION_MICROGRAMS_PER_CUBIC_METER,
+    UnitOfDensity,
     DEGREE,
     UnitOfIrradiance,
     UnitOfTemperature,
+
 )
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.typing import StateType
@@ -323,7 +324,7 @@ SENSOR_TYPES: tuple[MeteobridgeSensorEntityDescription, ...] = (
         name="Air Quality PM10",
         icon="mdi:air-filter",
         device_class=SensorDeviceClass.PM10,
-        native_unit_of_measurement=CONCENTRATION_MICROGRAMS_PER_CUBIC_METER,
+        native_unit_of_measurement=UnitOfDensity.MICROGRAMS_PER_CUBIC_METER,
         unit_type="none",
         always_add=False,
         attribute_field=None,
@@ -333,7 +334,7 @@ SENSOR_TYPES: tuple[MeteobridgeSensorEntityDescription, ...] = (
         name="Air Quality PM2.5",
         icon="mdi:air-filter",
         device_class=SensorDeviceClass.PM25,
-        native_unit_of_measurement=CONCENTRATION_MICROGRAMS_PER_CUBIC_METER,
+        native_unit_of_measurement=UnitOfDensity.MICROGRAMS_PER_CUBIC_METER,
         unit_type="none",
         always_add=False,
         attribute_field=None,
@@ -362,7 +363,7 @@ SENSOR_TYPES: tuple[MeteobridgeSensorEntityDescription, ...] = (
         name="Air Quality PM1",
         icon="mdi:air-filter",
         device_class=SensorDeviceClass.PM1,
-        native_unit_of_measurement=CONCENTRATION_MICROGRAMS_PER_CUBIC_METER,
+        native_unit_of_measurement=UnitOfDensity.MICROGRAMS_PER_CUBIC_METER,
         unit_type="none",
         always_add=False,
         attribute_field=None,
