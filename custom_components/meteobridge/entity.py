@@ -35,7 +35,7 @@ class MeteobridgeEntity(CoordinatorEntity):
         self._attr_unique_id = f"{description.key}_{self.device_data.key}"
         self._attr_device_info = DeviceInfo(
             manufacturer=DEFAULT_BRAND,
-            via_device=(DOMAIN, self.entry.unique_id),
+            identifiers={(DOMAIN, self.entry.unique_id)},
             connections={(dr.CONNECTION_NETWORK_MAC, self.entry.unique_id)},
             configuration_url=f"http://{self.device_data.ip}",
         )
