@@ -19,9 +19,14 @@ from pymeteobridgedata.data import DataLoggerDescription
 
 from .const import (
     CONF_EXTRA_SENSORS,
-    DEFAULT_SCAN_INTERVAL,
+    DEFAULT_URL_SCAN_INTERVAL,
     DEFAULT_USERNAME,
     DOMAIN,
+    MAX_SCAN_INTERVAL,
+    MIN_SCAN_INTERVAL,
+    clamp_scan_interval,
+    get_default_scan_interval,
+    is_url_host,
 )
 
 _LOGGER = logging.getLogger(__name__)
@@ -30,7 +35,7 @@ _LOGGER = logging.getLogger(__name__)
 class MeteobridgeFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
     """Handle a Meteobridge config flow."""
 
-    VERSION = 1
+    VERSION = 2
 
     @staticmethod
     @callback
@@ -78,7 +83,7 @@ class MeteobridgeFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                 CONF_PASSWORD: user_input.get(CONF_PASSWORD),
             },
             options={
-                CONF_SCAN_INTERVAL: DEFAULT_SCAN_INTERVAL,
+                CONF_SCAN_INTERVAL: get_default_scan_interval(user_input[CONF_HOST]),
                 CONF_EXTRA_SENSORS: 0,
             },
         )
@@ -106,16 +111,26 @@ class OptionsFlowHandler(config_entries.OptionsFlow):
         if user_input is not None:
             return self.async_create_entry(title="", data=user_input)
 
+        host = self.config_entry.data[CONF_HOST]
+        min_scan_interval = (
+            DEFAULT_URL_SCAN_INTERVAL if is_url_host(host) else MIN_SCAN_INTERVAL
+        )
+        default_scan_interval = self.config_entry.options.get(
+            CONF_SCAN_INTERVAL, get_default_scan_interval(host)
+        )
+        default_scan_interval = clamp_scan_interval(host, default_scan_interval)
+
         return self.async_show_form(
             step_id="init",
             data_schema=vol.Schema(
                 {
                     vol.Optional(
                         CONF_SCAN_INTERVAL,
-                        default=self.config_entry.options.get(
-                            CONF_SCAN_INTERVAL, DEFAULT_SCAN_INTERVAL
-                        ),
-                    ): vol.All(vol.Coerce(int), vol.Range(min=10, max=120)),
+                        default=default_scan_interval,
+                    ): vol.All(
+                        vol.Coerce(int),
+                        vol.Range(min=min_scan_interval, max=MAX_SCAN_INTERVAL),
+                    ),
                     vol.Optional(
                         CONF_EXTRA_SENSORS,
                         default=self.config_entry.options.get(CONF_EXTRA_SENSORS, 0),

@@ -90,8 +90,11 @@ You can configure more than 1 instance of the Integration by using a different I
 * `ip_address`: (required) IP Address of the Meteobridge device.
 * `username`: (required) The username to login to your Meteobridge device. Default this *meteobridge*.
 * `password`: (required) The password for your meteobridge device.
-* `update_interval`: (optional) The interval in seconds between updates. (Default 60 seconds, min 15 and max 120)
+* `update_interval`: (optional) The interval in seconds between updates. For a local host (not an `http://` or `https://` URL), the default is 60 seconds and the allowed range is 10–360 seconds. For an HTTP(S) URL, the default and minimum are 120 seconds, with a maximum of 360 seconds. **The longer minimum for URL-based hosts helps avoid putting unnecessary load on Meteobridge relay servers, which can route requests over the internet to a Meteobridge on a private network for free**.
+
 * `extra_sensors`: (optional) Number of extra sensors attached to the Meteobridge Logger. Except Soil and Leaf sensors. (Default is 0, max is 7)
+
+After updating the integration, saved scan intervals are automatically adjusted to the allowed range when Home Assistant starts. For example, an existing HTTP(S) URL configuration below 120 seconds is raised to 120 seconds; no manual change is needed.
 
 ## Available Sensors
 
