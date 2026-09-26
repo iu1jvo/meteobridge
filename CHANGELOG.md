@@ -1,5 +1,13 @@
 # Change Log
 
+## [3.6.0] - 2026-09-26
+- Require a minimum 120-second update interval for HTTP(S) hosts to reduce load on Meteobridge relay servers. Local hosts retain a 10-second minimum; the maximum is 360 seconds for both.
+- Automatically migrate existing config entries to the allowed scan interval range on startup.
+
+## [3.5.5] - 2026-09-12
+- Fix Issue [Warning for deprecated unit of measure] (https://github.com/iu1jvo/meteobridge/issues/21)
+- Fix Issue [Warning for deprecated parameter in function call] (https://github.com/iu1jvo/meteobridge/issues/22)
+
 ## [3.5.2] - 2026-05-19
 - Fix Issue [Failed to setup after upgrade to 3.5.1](https://github.com/iu1jvo/meteobridge/issues/13).
 

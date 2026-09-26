@@ -29,10 +29,11 @@ from .const import (
     CONF_UNIT_SYSTEM_IMPERIAL,
     CONF_UNIT_SYSTEM_METRIC,
     DEFAULT_BRAND,
-    DEFAULT_SCAN_INTERVAL,
     DEFAULT_USERNAME,
     DOMAIN,
     METEOBRIDGE_PLATFORMS,
+    clamp_scan_interval,
+    get_default_scan_interval,
 )
 from .models import MeteobridgeEntryData
 
@@ -113,7 +114,9 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         name=DOMAIN,
         update_method=async_update_data,
         update_interval=timedelta(
-            seconds=entry.options.get(CONF_SCAN_INTERVAL, DEFAULT_SCAN_INTERVAL)
+            seconds=entry.options.get(
+                CONF_SCAN_INTERVAL, get_default_scan_interval(entry.data[CONF_HOST])
+            )
         ),
     )
     await coordinator.async_config_entry_first_refresh()
@@ -131,6 +134,31 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     await hass.config_entries.async_forward_entry_setups(entry, METEOBRIDGE_PLATFORMS)
 
     entry.async_on_unload(entry.add_update_listener(_async_options_updated))
+
+    return True
+
+
+async def async_migrate_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
+    """Migrate stored scan intervals to the host-specific allowed range."""
+    if entry.version == 1:
+        host = entry.data[CONF_HOST]
+        scan_interval = entry.options.get(
+            CONF_SCAN_INTERVAL, get_default_scan_interval(host)
+        )
+        try:
+            scan_interval = int(scan_interval)
+        except (TypeError, ValueError):
+            scan_interval = get_default_scan_interval(host)
+
+        hass.config_entries.async_update_entry(
+            entry,
+            options={
+                **entry.options,
+                CONF_SCAN_INTERVAL: clamp_scan_interval(host, scan_interval),
+            },
+            version=2,
+        )
+        _LOGGER.info("Migrated Meteobridge config entry %s", entry.entry_id)
 
     return True
 
